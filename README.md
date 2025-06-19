@@ -18,8 +18,7 @@ Este é um projeto sobre a previsão do tempo que mostra o pais, região e a tem
 ✅ Buscar clima por cidade  
 ✅ Detectar clima da localização atual do usuário  
 ✅ Mostrar um fundo visual com base na condição climática (Unsplash)  
-✅ Interface responsiva e estilizada com Tailwind CSS 
-
+✅ Interface responsiva e estilizada com Tailwind CSS
 ✅ Permissão de geolocalização persistente 
 
 ---
