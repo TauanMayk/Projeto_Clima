@@ -9,6 +9,7 @@ import BotaoBusca from "../BotaoBusca/BotaoBusca";
 import BotaoLocalizacao from "../BotaoLocalizacao/BotaoLocalizacao";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { WiHumidity, WiStrongWind, WiTime1 } from "react-icons/wi";
 import "./paginaprincipal.css";
 
 export const PaginaPrincipal = () => {
@@ -56,7 +57,7 @@ export const PaginaPrincipal = () => {
 
   const handleBuscarLocalizacao = () => {
     if (!navigator.geolocation) {
-      alert("Geolocalização não suportada pelo seu navegador.");
+      alert("Geolocalização não permitida pelo seu navegador.");
       return;
     }
 
@@ -84,14 +85,14 @@ export const PaginaPrincipal = () => {
   return (
     <>
       <main
-        className="container bg-cover bg-center w-full max-w-sm text-center border-15px drop-shadow-[20px_23px_15px_-3px_#0000] rounded-lg justify-center items-center"
+        className="container bg-cover bg-center w-full max-w-[370px] text-center border-14px drop-shadow-[20px_23px_15px_-3px_#0000] rounded-lg justify-center items-center"
         style={{
           backgroundImage: imagemDeCondicao
             ? `url(${imagemDeCondicao})`
             : undefined,
         }}
       >
-        <div className="p-6 flex flex-col items-center justify-center gap-4">
+        <div className="p-6 flex flex-col items-center justify-center gap-2">
           <BotaoLocalizacao onClick={handleBuscarLocalizacao} />
           <div className="p-2 flex items-center justify-between gap-4">
             <InputBusca value={cidadeInput} onChange={setCidadeInput} />
@@ -106,17 +107,17 @@ export const PaginaPrincipal = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.05 }}
-                className="informacao-principal flex flex-col m-[30px] text-center items-center"
+                className="informacao-principal flex flex-col m-[20px] text-center items-center"
               >
-                <h2 className="text-white" id="cidade">
+                <h2 className="text-white text-xl font-semibold" id="cidade">
                   {dadosClima.location.country.split("-")[0]}
                 </h2>
-                <h3 className="text-white" id="cidade">
+                <h3 className="text-white text-2xl font-semibold" id="cidade">
                   {dadosClima.location.region.split("-")[0]}
                 </h3>
                 <p
                   id="temperatura"
-                  className="temperatura text-[40px] mx-6 my-0 text-white"
+                  className="temperatura text-4xl font-semibold mx-6 my-0 text-white"
                 >
                   {dadosClima.current.temp_c} °C
                 </p>
@@ -125,8 +126,8 @@ export const PaginaPrincipal = () => {
                   alt="icone condição do clima"
                   id="icone-condicao"
                   className="self-center transition-all duration-300 hover:shadow-2xl"
-                  whileHover={{ scale: 1.25 }}
-                  whileTap={{ scale: 0.98 }}
+                  whileHover={{ scale: 1.5 }}
+                  whileTap={{ scale: 1.0 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 />
                 <p className="condicao text-[20px] text-white" id="condicao">
@@ -137,19 +138,20 @@ export const PaginaPrincipal = () => {
                 initial={{ y: -60, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
-                className="bg-[#FFFFFF] w-full text-black px-12 py-10 gap-6 rounded-lg"
+                className="bg-[#FFFFFF] w-full text-black px-10 py-6 rounded-lg"
               >
-                <div className="flex justify-around items-center">
-                  <span>Umidade</span>
-                  <span id="umidade">{dadosClima.current.humidity}%</span>
+                <div className="flex flex-row justify-center items-center">
+                  <WiHumidity className="text-2xl" />
+                  <p>Umidade: {dadosClima.current.humidity} %</p>
                 </div>
-                <div className="flex justify-around items-center">
-                  <span>Velocidade do Vento</span>
-                  <span id="velocidade-do-vento">
-                    {dadosClima.current.wind_kph} km/h
-                  </span>
+                <div className="flex flex-row justify-center items-center">
+                  <WiStrongWind className="text-2xl" />
+                  <p>Velocidade do Vento: {dadosClima.current.wind_kph}km/h</p>
                 </div>
-                <br />
+                <div className="flex flex-row justify-center items-center">
+                  <WiTime1 className="text-2xl" />
+                  <p>Ultima Atualização: {dadosClima.current.last_updated}</p>
+                </div>
               </motion.div>
             </>
           )}

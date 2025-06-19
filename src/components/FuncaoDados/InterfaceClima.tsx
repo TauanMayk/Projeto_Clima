@@ -7,7 +7,7 @@ export interface ClimaAtual {
   };
   current: {
     temp_c: number;
-    last_update: string;
+    last_updated: string;
     humidity: number;
     wind_kph: number;
     condition: {
