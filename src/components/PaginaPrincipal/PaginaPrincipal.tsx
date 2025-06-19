@@ -40,19 +40,19 @@ export const PaginaPrincipal = () => {
   }, [cidadeFinal]);
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(async (posicao) => {
-      const { latitude, longitude } = posicao.coords;
-      const dados = await buscarClimaPorCoordenadas(latitude, longitude);
-      try {
-        if (dados) {
-          setDadosClima(dados);
-          setLocalizacaoAtual(true);
+      navigator.geolocation.getCurrentPosition(async (posicao) => {
+        const { latitude, longitude } = posicao.coords;
+        const dados = await buscarClimaPorCoordenadas(latitude, longitude);
+        try {
+          if (dados) {
+            setDadosClima(dados);
+            setLocalizacaoAtual(true);
+          }
+        } catch (error) {
+          console.warn("Erro ao obter a localização do usuario:" + error);
+          setLocalizacaoAtual(false);
         }
-      } catch (error) {
-        console.warn("Erro ao obter a localização do usuario:" + error);
-        setLocalizacaoAtual(false);
-      }
-    });
+      });
   }, []);
 
   const handleBuscarLocalizacao = () => {
@@ -85,7 +85,7 @@ export const PaginaPrincipal = () => {
   return (
     <>
       <main
-        className="container bg-cover bg-center w-full max-w-[370px] text-center border-14px drop-shadow-[20px_23px_15px_-3px_#0000] rounded-lg justify-center items-center"
+        className="container bg-cover bg-center w-full max-w-[370px] text-center border-14px backdrop-blur-md rounded-lg justify-center items-center"
         style={{
           backgroundImage: imagemDeCondicao
             ? `url(${imagemDeCondicao})`
@@ -99,7 +99,9 @@ export const PaginaPrincipal = () => {
             <BotaoBusca onClick={handleBuscarClima} />
           </div>
           {!localizacaoAtual && (
-            <p>Localização não encontrada. Digite uma cidade manualmente.</p>
+            <p className="text-red-500 mt-2">
+              Localização não encontrada. Digite uma cidade manualmente.
+            </p>
           )}
           {dadosClima && (
             <>
@@ -109,7 +111,7 @@ export const PaginaPrincipal = () => {
                 transition={{ duration: 0.5, delay: 0.05 }}
                 className="informacao-principal flex flex-col m-[20px] text-center items-center"
               >
-                <h2 className="text-white text-xl font-semibold" id="cidade">
+                <h2 className="text-white text-3xl font-semibold" id="cidade">
                   {dadosClima.location.country.split("-")[0]}
                 </h2>
                 <h3 className="text-white text-2xl font-semibold" id="cidade">
@@ -117,7 +119,7 @@ export const PaginaPrincipal = () => {
                 </h3>
                 <p
                   id="temperatura"
-                  className="temperatura text-4xl font-semibold mx-6 my-0 text-white"
+                  className="temperatura text-6xl font-semibold mx-6 my-0 text-black"
                 >
                   {dadosClima.current.temp_c} °C
                 </p>
@@ -138,18 +140,18 @@ export const PaginaPrincipal = () => {
                 initial={{ y: -60, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
-                className="bg-[#FFFFFF] w-full text-black px-10 py-6 rounded-lg"
+                className="bg-[#FFFFFF] backdrop-blur-md w-full text-black px-10 py-6 rounded-2xl shadow-lg"
               >
                 <div className="flex flex-row justify-center items-center">
-                  <WiHumidity className="text-2xl" />
+                  <WiHumidity className="text-2xl capitalize" />
                   <p>Umidade: {dadosClima.current.humidity} %</p>
                 </div>
                 <div className="flex flex-row justify-center items-center">
-                  <WiStrongWind className="text-2xl" />
+                  <WiStrongWind className="text-2xl capitalize" />
                   <p>Velocidade do Vento: {dadosClima.current.wind_kph}km/h</p>
                 </div>
                 <div className="flex flex-row justify-center items-center">
-                  <WiTime1 className="text-2xl" />
+                  <WiTime1 className="text-2xl capitalize" />
                   <p>Ultima Atualização: {dadosClima.current.last_updated}</p>
                 </div>
               </motion.div>

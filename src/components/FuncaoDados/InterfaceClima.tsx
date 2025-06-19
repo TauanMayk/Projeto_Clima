@@ -2,7 +2,7 @@ export interface ClimaAtual {
   location: {
     name: string;
     region: string;
-    tocaltime: string;
+    localtime: string;
     country: string;
   };
   current: {
