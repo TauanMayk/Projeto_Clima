@@ -1,6 +1,6 @@
 import type { ClimaAtual } from "./InterfaceClima";
 
-const chaveDeApi = "d119a2c8b0a24819830233356240711";
+const chaveDeApi = import.meta.env.VITE_CHAVE_API_WEATHER;
 
 export async function buscarDadosDeClima(
   cidade: string
@@ -16,19 +16,21 @@ export async function buscarDadosDeClima(
 }
 
 export async function buscarClimaPorCoordenadas(lat: number, lon: number) {
+  const chaveDeApi = import.meta.env.VITE_CHAVE_API_WEATHER;
+
   const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${chaveDeApi}&q=${lat},${lon}&aqi=no&lang=pt`;
+
   const respostaCoordenadas = await fetch(apiUrl);
   if (!respostaCoordenadas.ok) return null;
   return await respostaCoordenadas.json();
 }
 
-const ChaveDeAPIUnplash = "M5MCel3ULi1X3TGWKaHHbWn3qwysTUO3NVwyZxYOzpA";
+const ChaveDeAPIUnplash = import.meta.env.VITE_CHAVE_API_UNSPLASH;
 
 export async function buscarImagemDeFundo(
   condicao: string
 ): Promise<string | null> {
   
-  // 🗺️ Mapeia a condição em português para uma palavra em inglês
   const mapaCondicoes: Record<string, string> = {
     Sol: "sunny",
     Ensolarado: "sun",
@@ -42,7 +44,6 @@ export async function buscarImagemDeFundo(
     default: "weather",
   };
 
-  // Traduz a condição para um termo de busca mais eficaz
   const termoBusca = mapaCondicoes[condicao] || mapaCondicoes["default"];
 
   const apiUrl = `https://api.unsplash.com/search/photos?query=${termoBusca}&orientation=landscape&client_id=${ChaveDeAPIUnplash}&orientation=landscape&per_page=1`;

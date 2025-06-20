@@ -40,19 +40,19 @@ export const PaginaPrincipal = () => {
   }, [cidadeFinal]);
 
   useEffect(() => {
-      navigator.geolocation.getCurrentPosition(async (posicao) => {
-        const { latitude, longitude } = posicao.coords;
-        const dados = await buscarClimaPorCoordenadas(latitude, longitude);
-        try {
-          if (dados) {
-            setDadosClima(dados);
-            setLocalizacaoAtual(true);
-          }
-        } catch (error) {
-          console.warn("Erro ao obter a localização do usuario:" + error);
-          setLocalizacaoAtual(false);
+    navigator.geolocation.getCurrentPosition(async (posicao) => {
+      const { latitude, longitude } = posicao.coords;
+      const dados = await buscarClimaPorCoordenadas(latitude, longitude);
+      try {
+        if (dados) {
+          setDadosClima(dados);
+          setLocalizacaoAtual(true);
         }
-      });
+      } catch (error) {
+        console.warn("Erro ao obter a localização do usuario:" + error);
+        setLocalizacaoAtual(false);
+      }
+    });
   }, []);
 
   const handleBuscarLocalizacao = () => {
@@ -99,9 +99,13 @@ export const PaginaPrincipal = () => {
             <BotaoBusca onClick={handleBuscarClima} />
           </div>
           {!localizacaoAtual && (
+            <>
+            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white">
+            </div>
             <p className="text-red-500 mt-2">
-              Localização não encontrada. Digite uma cidade manualmente.
+                Localização não encontrada. Digite uma cidade manualmente.
             </p>
+            </>
           )}
           {dadosClima && (
             <>
