@@ -9,7 +9,13 @@ Este é um projeto sobre a previsão do tempo que mostra o pais, região e a tem
 
 ## 📸 Preview do Projeto:
 
-![Screenshot_17](https://github.com/user-attachments/assets/86b0fea9-396d-433a-a894-9ea8f6a4f604)
+![Janela 2025-06-20 12-55-25_1](https://github.com/user-attachments/assets/8edf408c-a5a5-42b6-8eb5-f72ceaf24c28)
+
+---
+
+## 🚀 Acesse o Projeto
+
+🔗 [Clique aqui para visualizar o projeto online](https://projeto-clima-mu.vercel.app/)
 
 ---
 
